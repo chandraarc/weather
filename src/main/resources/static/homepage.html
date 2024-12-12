@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+</head>
+<script>
+  function saveData(){
+       var postalCode = document.getElementById("postalCode").value;
+        var data = $.ajax({
+          type: 'POST',
+          url: "/app/weather",
+           data: JSON.stringify({ 'postalCode': postalCode}),
+            contentType: "application/json",
+          success: function(resultData) { document.getElementById("result").innerHTML = JSON.stringify(resultData, null, 2) }
+        });
+        saveData.error(function() { alert("Something went wrong"); });
+    }
+    function displayAll(){
+       var postalCode = document.getElementById("postalCode1").value;
+       var user = document.getElementById("user").value;
+
+        var data = $.ajax({
+          type: 'GET',
+          url: "/app/history?postalCode="+postalCode+"&user="+user,
+
+            contentType: "application/json",
+          success: function(resultData) { document.getElementById("result").innerHTML = JSON.stringify(resultData, null, 2) }
+        });
+        data.error(function() { alert("Unautherized"); });
+    }
+</script>
+
+<body>
+<a style="margin-right:0px" href="/logout">logout</a>
+<div class="container">
+    <div>
+        <label for="postalCode">PostalCode:</label>
+        <input type="text" id="postalCode" name="postalCode" placeholder="postal and country code"> Eg:94040,us
+        <button  onclick="saveData()" value="Submit">Submit</button>
+    </div>
+    <div th:switch="${role}">
+        <div th:case="${'ROLE_ADMIN'}">
+            <label for="postalCode">PostalCode:</label><br>
+            <input type="text" id="postalCode1" name="postalCode1" placeholder="postal and country code"> Eg:94040,us
+            <label for="user">UserName:</label>
+            <input type="text" id="user" name="user" placeholder="user"> user1
+            <button  onclick="displayAll()"  value="GET HISTORY">GET HISTORY</button>
+        </div>
+    </div>
+    </br>
+    </br>
+    </br>
+    <div style="width:700px;border: 1px solid" id="result"></div>
+</div>
+</body>
+</html>
