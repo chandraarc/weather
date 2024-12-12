@@ -1,8 +1,11 @@
 configure your own mysql username and password in application properties
+
+
 spring.datasource.username=root
 spring.datasource.password=test@000#
 
 configure your own username and password 
+
 user1=chandra
 password1=chandra
 role1=USER
