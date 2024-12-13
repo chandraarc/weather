@@ -1,3 +1,9 @@
+git clone using 'git clone git@github.com:chandraarc/weather.git' command
+
+
+create database with name 'weather'
+
+
 configure your own mysql username and password in application properties
 
 
