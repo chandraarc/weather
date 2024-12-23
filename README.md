@@ -24,3 +24,5 @@ mvn clean install
 
 run the application using
 mvn spring-boot:run
+htt http://localhost:8080
+login using chandra, password chandra
